@@ -5,8 +5,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
 import pl.orlowski.sebastian.weather.model.Destination;
-import pl.orlowski.sebastian.weather.model.User;
-import pl.orlowski.sebastian.weather.repository.UserRepository;
 import pl.orlowski.sebastian.weather.service.TravelService;
 import pl.orlowski.sebastian.weather.service.UserService;
 
@@ -26,12 +24,7 @@ public class HomeController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(@Valid UserRegistrationDto userRegistrationDto,
-                               BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "";
-        }
+    public String registerUser(UserRegistrationDto userRegistrationDto) {
         userService.save(userRegistrationDto);
 
         return "zarejestrowny";
