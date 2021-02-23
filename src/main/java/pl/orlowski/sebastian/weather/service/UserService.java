@@ -7,6 +7,7 @@ import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
 import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
 import pl.orlowski.sebastian.weather.validation.PasswordStrength;
+import pl.orlowski.sebastian.weather.validation.UserValidation;
 import pl.orlowski.sebastian.weather.validation.exception.EmailAlreadyExistException;
 import pl.orlowski.sebastian.weather.validation.exception.PasswordIsWeakException;
 import pl.orlowski.sebastian.weather.validation.exception.UserAlreadyExistException;
@@ -17,21 +18,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final PasswordStrength passwordStrength;
+    private final UserValidation userValidation;
 
     public User save(UserRegistrationDto userRegistrationDto) {
 
-        if (!passwordStrength.isValid(userRegistrationDto.getPassword())) {
-            throw new PasswordIsWeakException("");
-        }
-
-        if (usernameIsExist(userRegistrationDto.getUsername())) {
-            throw new UserAlreadyExistException(userRegistrationDto.getUsername());
-        }
-
-        if (emailIsExist(userRegistrationDto.getEmail())) {
-            throw new EmailAlreadyExistException(userRegistrationDto.getEmail());
-        }
+        userValidation.userRegistrationValidator(userRegistrationDto);
 
         User user = new User();
         user.setUsername(userRegistrationDto.getUsername());
@@ -41,11 +32,4 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean emailIsExist(String email) {
-        return userRepository.findByEmail(email) != null;
-    }
-
-    public boolean usernameIsExist(String username) {
-        return userRepository.findByUsername(username) != null;
-    }
 }

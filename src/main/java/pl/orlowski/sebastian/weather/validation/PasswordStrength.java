@@ -2,7 +2,7 @@ package pl.orlowski.sebastian.weather.validation;
 
 public class PasswordStrength {
 
-    public boolean isValid(String password) {
+    protected boolean isValid(String password) {
         int size = password.length();
         if (size < 5) {
             return false;
