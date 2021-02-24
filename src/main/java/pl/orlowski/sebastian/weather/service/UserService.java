@@ -6,11 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
 import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
-import pl.orlowski.sebastian.weather.validation.PasswordStrength;
-import pl.orlowski.sebastian.weather.validation.UserValidation;
-import pl.orlowski.sebastian.weather.validation.exception.EmailAlreadyExistException;
-import pl.orlowski.sebastian.weather.validation.exception.PasswordIsWeakException;
-import pl.orlowski.sebastian.weather.validation.exception.UserAlreadyExistException;
+import pl.orlowski.sebastian.weather.validation.user.UserValidation;
 
 @Service
 @RequiredArgsConstructor

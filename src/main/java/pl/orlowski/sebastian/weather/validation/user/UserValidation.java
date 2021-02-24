@@ -1,24 +1,29 @@
-package pl.orlowski.sebastian.weather.validation;
+package pl.orlowski.sebastian.weather.validation.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
-import pl.orlowski.sebastian.weather.service.UserService;
-import pl.orlowski.sebastian.weather.validation.exception.EmailAlreadyExistException;
-import pl.orlowski.sebastian.weather.validation.exception.PasswordIsWeakException;
-import pl.orlowski.sebastian.weather.validation.exception.UserAlreadyExistException;
+import pl.orlowski.sebastian.weather.validation.exception.*;
 
 @Component
 @RequiredArgsConstructor
 public class UserValidation {
 
-    private final PasswordStrength passwordStrength;
+    private final UserInfoChecker userInfoChecker;
     private final UserRepository userRepository;
 
     public void userRegistrationValidator(UserRegistrationDto userRegistrationDto) {
-        if (!passwordStrength.isValid(userRegistrationDto.getPassword())) {
+        if (!userInfoChecker.isValidPassword(userRegistrationDto.getPassword())) {
             throw new PasswordIsWeakException("");
+        }
+
+        if (!userInfoChecker.isValidUsername(userRegistrationDto.getUsername())) {
+            throw new WrongUsernameFormatException("");
+        }
+
+        if (!userInfoChecker.isValidEmail(userRegistrationDto.getEmail())) {
+            throw new WrongEmailFormatException("");
         }
 
         if (usernameIsExist(userRegistrationDto.getUsername())) {
@@ -28,7 +33,6 @@ public class UserValidation {
         if (emailIsExist(userRegistrationDto.getEmail())) {
             throw new EmailAlreadyExistException(userRegistrationDto.getEmail());
         }
-
     }
 
     public boolean emailIsExist(String email) {

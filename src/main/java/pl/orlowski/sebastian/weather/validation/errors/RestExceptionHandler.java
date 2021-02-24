@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import pl.orlowski.sebastian.weather.validation.exception.EmailAlreadyExistException;
-import pl.orlowski.sebastian.weather.validation.exception.PasswordIsWeakException;
-import pl.orlowski.sebastian.weather.validation.exception.UserAlreadyExistException;
+import pl.orlowski.sebastian.weather.validation.exception.*;
 
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -35,6 +33,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(PasswordIsWeakException.class)
     protected ResponseEntity<Object> handlePasswordIsWeak(
             PasswordIsWeakException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_ACCEPTABLE);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(WrongUsernameFormatException.class)
+    protected ResponseEntity<Object> handleUsernameInvalid(
+            WrongUsernameFormatException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_ACCEPTABLE);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(WrongEmailFormatException.class)
+    protected ResponseEntity<Object> handleUsernameInvalid(
+            WrongEmailFormatException ex) {
         ApiError apiError = new ApiError(HttpStatus.NOT_ACCEPTABLE);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);

@@ -11,7 +11,7 @@ public class UserRegistrationDto {
 
     private Long id;
     @Size(min = 5, max = 20, message = "")
-    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "")
+    @Pattern(regexp = "^[A-Za-z0-9]+$")
     private String username;
 
     @Email
