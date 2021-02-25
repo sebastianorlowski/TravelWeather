@@ -12,29 +12,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final RestAuthenticationFailureHandler authenticationFailureHandler;
     private final RestAuthenticationSuccessHandler authenticationSuccessHandler;
+    private final DataSource datasource;
 
-    public SecurityConfig(RestAuthenticationFailureHandler authenticationFailureHandler, RestAuthenticationSuccessHandler authenticationSuccessHandler) {
+    public SecurityConfig(RestAuthenticationFailureHandler authenticationFailureHandler,
+                          RestAuthenticationSuccessHandler authenticationSuccessHandler,
+                          DataSource datasource) {
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.datasource = datasource;
     }
-
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("test")
-                .password("{noop}password")
-                .roles("USER");
+        auth.jdbcAuthentication().dataSource(datasource);
     }
 
     @Override

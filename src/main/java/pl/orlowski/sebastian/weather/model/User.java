@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "users")
 public class User {
 
     @Id
@@ -17,4 +16,5 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private boolean isEnabled;
 }
