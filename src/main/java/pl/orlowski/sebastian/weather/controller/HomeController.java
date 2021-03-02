@@ -1,10 +1,14 @@
 package pl.orlowski.sebastian.weather.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
 import pl.orlowski.sebastian.weather.model.Destination;
+import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.service.TravelService;
 import pl.orlowski.sebastian.weather.service.UserService;
 
@@ -24,10 +28,11 @@ public class HomeController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(UserRegistrationDto userRegistrationDto) {
+    public ResponseEntity<UserRegistrationDto> registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {
+        HttpHeaders headers = new HttpHeaders();
         userService.save(userRegistrationDto);
 
-        return "zarejestrowny";
+        return new ResponseEntity<>(userRegistrationDto, headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/")

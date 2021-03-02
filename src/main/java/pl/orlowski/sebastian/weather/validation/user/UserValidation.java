@@ -14,24 +14,28 @@ public class UserValidation {
     private final UserRepository userRepository;
 
     public void userRegistrationValidator(UserRegistrationDto userRegistrationDto) {
-        if (!userInfoChecker.isValidPassword(userRegistrationDto.getPassword())) {
-            throw new PasswordIsWeakException("");
-        }
+        try {
+            if (!userInfoChecker.isValidPassword(userRegistrationDto.getPassword())) {
+                throw new PasswordIsWeakException("");
+            }
 
-        if (!userInfoChecker.isValidUsername(userRegistrationDto.getUsername())) {
-            throw new WrongUsernameFormatException("");
-        }
+            if (!userInfoChecker.isValidUsername(userRegistrationDto.getUsername())) {
+                throw new WrongUsernameFormatException("");
+            }
 
-        if (!userInfoChecker.isValidEmail(userRegistrationDto.getEmail())) {
-            throw new WrongEmailFormatException("");
-        }
+            if (!userInfoChecker.isValidEmail(userRegistrationDto.getEmail())) {
+                throw new WrongEmailFormatException("");
+            }
 
-        if (usernameIsExist(userRegistrationDto.getUsername())) {
-            throw new UserAlreadyExistException(userRegistrationDto.getUsername());
-        }
+            if (usernameIsExist(userRegistrationDto.getUsername())) {
+                throw new UserAlreadyExistException(userRegistrationDto.getUsername());
+            }
 
-        if (emailIsExist(userRegistrationDto.getEmail())) {
-            throw new EmailAlreadyExistException(userRegistrationDto.getEmail());
+            if (emailIsExist(userRegistrationDto.getEmail())) {
+                throw new EmailAlreadyExistException(userRegistrationDto.getEmail());
+            }
+        } catch (NullPointerException e) {
+            throw new EmptyValueException("");
         }
     }
 

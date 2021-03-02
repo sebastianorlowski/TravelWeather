@@ -1,20 +1,19 @@
 package pl.orlowski.sebastian.weather.validation.user;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
 
 @Component
 public class UserInfoChecker {
 
     protected boolean isValidPassword(String password) {
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,30}$";
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$";
 
-        return password.matches(regex);
+            return password.matches(regex);
     }
 
     protected boolean isValidEmail(String email) {
-        String regex = "^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*\n" +
-                "@[a-zA-Z](-?[a-zA-Z0-9])*(\\.[a-zA-Z](-?[a-zA-Z0-9])*)+$";
+        String regex = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
 
         return email.matches(regex);
     }
