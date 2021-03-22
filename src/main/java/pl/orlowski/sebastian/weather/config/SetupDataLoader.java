@@ -32,7 +32,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createRoleIfNotFound("ROLE_USER");
         createRoleIfNotFound("ROLE_ADMIN");
 
-        if (userRepository.findByUsername("test") == null) {
+        if (userRepository.findByUsername("test123") == null) {
             UserRegistrationDto user = new UserRegistrationDto();
             user.setUsername("test123");
             user.setPassword("Test12345");

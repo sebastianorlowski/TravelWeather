@@ -44,26 +44,15 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Unknown user");
-        }
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+        org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User
+                (user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 
-        if (user.isEnabled()) {
-            org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User
-                    (user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-
-            return userDetails;
-        } else {
-            throw new UsernameNotFoundException("Account is disabled!");
-        }
+        return userDetails;
     }
 
-    /* Transfer roles to authorities */
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-//        Put roles into stream then map the role, we put role to the security provide class
-//        simplegrantedauthority and we pass roles name to this object and finally we collected stream to the list
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
-
 }
