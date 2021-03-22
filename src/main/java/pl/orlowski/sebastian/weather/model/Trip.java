@@ -1,32 +1,25 @@
 package pl.orlowski.sebastian.weather.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Collection;
 
+@Entity
+@Table(name = "trips")
 @Getter
 @Setter
-@Entity
-@Table(name = "destinations")
 @RequiredArgsConstructor
-@Builder
-public class Destination {
+public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int hours;
-    private int day;
-    private int month;
-    private int year;
-    private String place;
+    private String name;
 
     @ManyToOne
-    private Trip trip;
+    private User user;
 
 }

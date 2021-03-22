@@ -11,6 +11,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public void login(@RequestBody LoginCredentials loginCredentials) {
+        
     }
 
     @GetMapping("/")

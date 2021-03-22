@@ -1,6 +1,7 @@
 package pl.orlowski.sebastian.weather.config.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,33 +25,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final RestAuthenticationFailureHandler authenticationFailureHandler;
     private final RestAuthenticationSuccessHandler authenticationSuccessHandler;
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsService userService;
     private final String secret;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public SecurityConfig(RestAuthenticationFailureHandler authenticationFailureHandler,
                           RestAuthenticationSuccessHandler authenticationSuccessHandler,
-                          UserDetailsService userDetailsService,
+                          UserDetailsService userService,
                           @Value("${jwt.secret}") String secret,
                           BCryptPasswordEncoder passwordEncoder) {
         this.authenticationFailureHandler = authenticationFailureHandler;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
-        this.userDetailsService = userDetailsService;
+        this.userService = userService;
         this.secret = secret;
         this.passwordEncoder = passwordEncoder;
     }
 
-//    @Bean
-//    public DaoAuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-//        auth.setUserDetailsService(userDetailsService());
-//        auth.setPasswordEncoder(passwordEncoder);
-//        return auth;
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 
     @Override
