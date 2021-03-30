@@ -9,5 +9,7 @@ import pl.orlowski.sebastian.weather.model.User;
 @Setter
 @RequiredArgsConstructor
 public class TripDto {
-    String name;
+
+    private Long id;
+    private String name;
 }

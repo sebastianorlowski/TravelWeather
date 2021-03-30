@@ -13,6 +13,7 @@ import pl.orlowski.sebastian.weather.repository.UserRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,15 @@ public class TripService {
     public Collection<Trip> findTripByUsername(String username) {
         User user = userRepository.findByUsername(username);
         return tripRepository.findTripByUser(user);
+    }
+
+    public void updateTrip(TripDto tripDto, Long id, String username) {
+        Trip trip = new Trip();
+        trip.setId(id);
+        trip.setName(tripDto.getName());
+        trip.setUser(userRepository.findByUsername(username));
+
+        tripRepository.save(trip);
     }
 
     public void removeTrip(Long id) {

@@ -1,5 +1,6 @@
 package pl.orlowski.sebastian.weather.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Trip {
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 }

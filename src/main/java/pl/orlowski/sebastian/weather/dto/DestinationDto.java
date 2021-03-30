@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class DestinationDto {
+
+    private Long id;
     private int hours;
     private int day;
     private int month;
