@@ -1,7 +1,6 @@
 package pl.orlowski.sebastian.weather.validation.user;
 
 import org.springframework.stereotype.Component;
-import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
 
 @Component
 public class UserInfoChecker {

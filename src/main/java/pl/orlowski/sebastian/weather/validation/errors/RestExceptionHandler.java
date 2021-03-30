@@ -5,8 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import pl.orlowski.sebastian.weather.validation.exception.*;
-import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
+import pl.orlowski.sebastian.weather.validation.exception.user.*;
 
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -48,7 +47,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(WrongEmailFormatException.class)
-    protected ResponseEntity<Object> handleUsernameInvalid(
+    protected ResponseEntity<Object> handleEmailInvalid(
             WrongEmailFormatException ex) {
         ApiError apiError = new ApiError(HttpStatus.FORBIDDEN);
         apiError.setMessage(ex.getMessage());
@@ -56,7 +55,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EmptyValueException.class)
-    protected ResponseEntity<Object> handleUsernameInvalid(
+    protected ResponseEntity<Object> handleEmptyValue(
             EmptyValueException ex) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(ex.getMessage());

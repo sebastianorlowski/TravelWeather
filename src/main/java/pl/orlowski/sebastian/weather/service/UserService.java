@@ -15,8 +15,8 @@ import pl.orlowski.sebastian.weather.repository.RoleRepository;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
 import pl.orlowski.sebastian.weather.validation.user.UserValidation;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,19 +37,20 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         user.setEmail(userRegistrationDto.getEmail());
         user.setEnabled(true);
-        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
 
         return userRepository.save(user);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found: " + username));
-        org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User
-                (user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("");
+        }
 
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User
+                (user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {

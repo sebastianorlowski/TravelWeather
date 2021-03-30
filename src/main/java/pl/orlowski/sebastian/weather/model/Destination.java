@@ -14,7 +14,6 @@ import java.sql.Time;
 @Entity
 @Table(name = "destinations")
 @RequiredArgsConstructor
-@Builder
 public class Destination {
 
     @Id
