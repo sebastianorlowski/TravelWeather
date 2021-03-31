@@ -1,6 +1,7 @@
 package pl.orlowski.sebastian.weather.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import pl.orlowski.sebastian.weather.dto.TripDto;
 import pl.orlowski.sebastian.weather.model.Trip;
 import pl.orlowski.sebastian.weather.model.User;
 

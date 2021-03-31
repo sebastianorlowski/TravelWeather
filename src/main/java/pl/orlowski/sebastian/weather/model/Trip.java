@@ -22,6 +22,10 @@ public class Trip {
 
     @ManyToOne
     @JsonIgnore
+    @JoinColumn
     private User user;
+
+    @OneToMany
+    private Collection<Destination> destinations;
 
 }

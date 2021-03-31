@@ -10,9 +10,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import pl.orlowski.sebastian.weather.dto.DestinationDto;
 import pl.orlowski.sebastian.weather.dto.TripDto;
+import pl.orlowski.sebastian.weather.model.Destination;
 import pl.orlowski.sebastian.weather.model.Trip;
 import pl.orlowski.sebastian.weather.model.User;
+import pl.orlowski.sebastian.weather.service.DestinationService;
 import pl.orlowski.sebastian.weather.service.TripService;
 
 import javax.xml.ws.Response;
@@ -24,11 +27,12 @@ import java.util.Collection;
 public class TripController {
 
     public final TripService tripService;
+    public final DestinationService destinationService;
 
     /* Pierwsza strona - wyświetl 10 tripów(max liczba tripów) */
     @GetMapping
-    public ResponseEntity<?> getTrips(UsernamePasswordAuthenticationToken user) {
-        Collection<Trip> trips = tripService.findTripByUsername(user.getName());
+    public ResponseEntity<?> showTrips(UsernamePasswordAuthenticationToken user) {
+        Collection<Trip> trips = tripService.showTripByUsername(user.getName());
         if (trips.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
@@ -39,15 +43,31 @@ public class TripController {
                 .body(trips);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> showTripById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.FOUND)
+                .body(tripService.showTripById(id));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> createDestination(@PathVariable Long id,
+                                               @RequestBody DestinationDto destinationDto) {
+        destinationService.createDestination(destinationDto, id);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(destinationDto);
+    }
+
     /* Stwórz nowego tripa */
     @PostMapping
     public ResponseEntity<?> createTrip(@RequestBody TripDto tripDto,
                                         UsernamePasswordAuthenticationToken user) {
         tripService.save(tripDto, user.getName());
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(tripDto);
+                .build();
     }
 
     /* Edytuj tripa */

@@ -1,5 +1,7 @@
 package pl.orlowski.sebastian.weather.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import java.sql.Time;
 @Setter
 @Entity
 @Table(name = "destinations")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @RequiredArgsConstructor
 public class Destination {
 
@@ -25,7 +28,8 @@ public class Destination {
     private int year;
     private String place;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn
     private Trip trip;
-
 }

@@ -1,19 +1,18 @@
 package pl.orlowski.sebastian.weather.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import pl.orlowski.sebastian.weather.dto.TripDto;
+import pl.orlowski.sebastian.weather.model.Destination;
 import pl.orlowski.sebastian.weather.model.Trip;
 import pl.orlowski.sebastian.weather.model.User;
+import pl.orlowski.sebastian.weather.repository.DestinationRepository;
 import pl.orlowski.sebastian.weather.repository.TripRepository;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class TripService {
 
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
-    private final UserService userService;
+    private final DestinationRepository destinationRepository;
 
     public void save(TripDto tripDto, String username) {
         Trip trip = new Trip();
@@ -31,9 +30,16 @@ public class TripService {
         tripRepository.save(trip);
     }
 
-    public Collection<Trip> findTripByUsername(String username) {
+    public Collection<Trip> showTripByUsername(String username) {
         User user = userRepository.findByUsername(username);
         return tripRepository.findTripByUser(user);
+    }
+
+    public Trip showTripById(Long id) {
+        Collection<Destination> destinations = destinationRepository.findByTripId(id);
+        Trip trip = tripRepository.findTripById(id);
+        trip.setDestinations(destinations);
+        return trip;
     }
 
     public void updateTrip(TripDto tripDto, Long id, String username) {
@@ -45,7 +51,9 @@ public class TripService {
         tripRepository.save(trip);
     }
 
+    @Transactional
     public void removeTrip(Long id) {
+        destinationRepository.removeByTripId(id);
         tripRepository.deleteById(id);
     }
 
