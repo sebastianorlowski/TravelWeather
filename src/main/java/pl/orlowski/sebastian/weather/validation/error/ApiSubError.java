@@ -1,4 +1,4 @@
-package pl.orlowski.sebastian.weather.validation.errors;
+package pl.orlowski.sebastian.weather.validation.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -13,7 +13,7 @@ import pl.orlowski.sebastian.weather.model.Role;
 import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.RoleRepository;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
-import pl.orlowski.sebastian.weather.validation.user.UserValidation;
+import pl.orlowski.sebastian.weather.validation.user.UserValidator;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -25,12 +25,12 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final UserValidation userValidation;
+    private final UserValidator userValidator;
     private final RoleRepository roleRepository;
 
-    public User save(UserRegistrationDto userRegistrationDto) {
+    public void save(UserRegistrationDto userRegistrationDto) {
 
-        userValidation.userRegistrationValidator(userRegistrationDto);
+        userValidator.userRegistrationValidator(userRegistrationDto);
 
         User user = new User();
         user.setUsername(userRegistrationDto.getUsername());
@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
         user.setEnabled(true);
         user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Override

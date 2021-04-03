@@ -29,7 +29,6 @@ public class TripController {
     public final TripService tripService;
     public final DestinationService destinationService;
 
-    /* Pierwsza strona - wyświetl 10 tripów(max liczba tripów) */
     @GetMapping
     public ResponseEntity<?> showTrips(UsernamePasswordAuthenticationToken user) {
         Collection<Trip> trips = tripService.showTripByUsername(user.getName());
@@ -44,10 +43,12 @@ public class TripController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> showTripById(@PathVariable Long id) {
+    public ResponseEntity<?> showTripById(@PathVariable Long id,
+                                          UsernamePasswordAuthenticationToken user) {
+        Trip trip = tripService.showTripById(id, user.getName());
         return ResponseEntity
-                .status(HttpStatus.FOUND)
-                .body(tripService.showTripById(id));
+                .status(HttpStatus.OK)
+                .body(trip);
     }
 
     @PostMapping("/{id}")
@@ -70,7 +71,6 @@ public class TripController {
                 .build();
     }
 
-    /* Edytuj tripa */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTripName(@PathVariable Long id,
                                             @RequestBody TripDto tripDto,
@@ -79,15 +79,13 @@ public class TripController {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .build();
+                .body(tripDto);
     }
 
-
-    /* Usuń tripa */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTrip(@PathVariable Long id,
                                   UsernamePasswordAuthenticationToken user) {
-        tripService.removeTrip(id);
+        tripService.removeTrip(id, user.getName());
 
         return ResponseEntity
                 .status(HttpStatus.OK)

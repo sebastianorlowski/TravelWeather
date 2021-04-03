@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.orlowski.sebastian.weather.dto.DestinationDto;
 import pl.orlowski.sebastian.weather.model.Destination;
+import pl.orlowski.sebastian.weather.model.Trip;
 import pl.orlowski.sebastian.weather.repository.DestinationRepository;
 import pl.orlowski.sebastian.weather.repository.TripRepository;
 
@@ -21,20 +22,29 @@ public class DestinationService {
         Destination destination = new Destination();
         destination.setHours(destinationDto.getHours());
         destination.setDay(destinationDto.getDay());
-        destination.setMonth(destinationDto.getDay());
+        destination.setMonth(destinationDto.getMonth());
         destination.setYear(destinationDto.getYear());
         destination.setPlace(destinationDto.getPlace());
-        destination.setTrip(tripRepository.getOne(id));
+
+        destinationRepository.save(destination);
+    }
+
+    public void updateDestination(DestinationDto destinationDto, Long id) {
+        Destination destination = new Destination();
+        destination.setId(id);
+        destination.setHours(destinationDto.getHours());
+        destination.setDay(destinationDto.getDay());
+        destination.setMonth(destinationDto.getMonth());
+        destination.setYear(destinationDto.getYear());
+        destination.setPlace(destinationDto.getPlace());
+        destination.setTrip(tripRepository
+                .findTripById(destinationRepository.findTripById(id)));
 
         destinationRepository.save(destination);
     }
 
     public Destination showDestinationById(Long id) {
         return destinationRepository.getOne(id);
-    }
-
-    public List<Destination> showDestinationsByTrip(Long id) {
-        return destinationRepository.findByTripId(id);
     }
 
     public void removeDestination(Long id) {

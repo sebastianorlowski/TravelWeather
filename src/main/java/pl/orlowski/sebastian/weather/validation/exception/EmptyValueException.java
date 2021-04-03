@@ -1,4 +1,4 @@
-package pl.orlowski.sebastian.weather.validation.exception.user;
+package pl.orlowski.sebastian.weather.validation.exception;
 
 public class EmptyValueException extends RuntimeException{
 

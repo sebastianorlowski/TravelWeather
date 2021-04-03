@@ -2,15 +2,14 @@ package pl.orlowski.sebastian.weather.validation.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.orlowski.sebastian.weather.config.security.LoginCredentials;
 import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
-import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
+import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
 import pl.orlowski.sebastian.weather.validation.exception.user.*;
 
 @Component
 @RequiredArgsConstructor
-public class UserValidation {
+public class UserValidator {
 
     private final UserInfoChecker userInfoChecker;
     private final UserRepository userRepository;

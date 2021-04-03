@@ -9,6 +9,7 @@ import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.DestinationRepository;
 import pl.orlowski.sebastian.weather.repository.TripRepository;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
+import pl.orlowski.sebastian.weather.validation.trip.TripValidator;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
@@ -21,8 +22,10 @@ public class TripService {
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
     private final DestinationRepository destinationRepository;
+    private final TripValidator tripValidator;
 
     public void save(TripDto tripDto, String username) {
+        tripValidator.createTripValidator(tripDto);
         Trip trip = new Trip();
         trip.setName(tripDto.getName());
         trip.setUser(userRepository.findByUsername(username));
@@ -31,11 +34,13 @@ public class TripService {
     }
 
     public Collection<Trip> showTripByUsername(String username) {
+        tripValidator.showTripByUsernameValidator(username);
         User user = userRepository.findByUsername(username);
         return tripRepository.findTripByUser(user);
     }
 
-    public Trip showTripById(Long id) {
+    public Trip showTripById(Long id, String username) {
+        tripValidator.showTripValidator(id, username);
         Collection<Destination> destinations = destinationRepository.findByTripId(id);
         Trip trip = tripRepository.findTripById(id);
         trip.setDestinations(destinations);
@@ -43,6 +48,7 @@ public class TripService {
     }
 
     public void updateTrip(TripDto tripDto, Long id, String username) {
+        tripValidator.createTripValidator(tripDto);
         Trip trip = new Trip();
         trip.setId(id);
         trip.setName(tripDto.getName());
@@ -52,7 +58,8 @@ public class TripService {
     }
 
     @Transactional
-    public void removeTrip(Long id) {
+    public void removeTrip(Long id, String username) {
+        tripValidator.showTripValidator(id, username);
         destinationRepository.removeByTripId(id);
         tripRepository.deleteById(id);
     }
