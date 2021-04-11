@@ -53,15 +53,15 @@ public class TripController {
 
     @PostMapping("/{id}")
     public ResponseEntity<?> createDestination(@PathVariable Long id,
-                                               @RequestBody DestinationDto destinationDto) {
-        destinationService.createDestination(destinationDto, id);
+                                               @RequestBody DestinationDto destinationDto,
+                                               UsernamePasswordAuthenticationToken user) {
+        destinationService.createDestination(destinationDto, id, user.getName());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(destinationDto);
     }
 
-    /* Stwórz nowego tripa */
     @PostMapping
     public ResponseEntity<?> createTrip(@RequestBody TripDto tripDto,
                                         UsernamePasswordAuthenticationToken user) {

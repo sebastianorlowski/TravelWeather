@@ -20,8 +20,9 @@ public class DestinationController {
     private final DestinationService destinationService;
 
     @GetMapping
-    public ResponseEntity<?> showDestination(@RequestParam Long id) {
-        Destination destination = destinationService.showDestinationById(id);
+    public ResponseEntity<?> showDestination(@RequestParam Long id,
+                                             UsernamePasswordAuthenticationToken user) {
+        Destination destination = destinationService.showDestinationById(id, user.getName());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -30,8 +31,9 @@ public class DestinationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateDestination(@PathVariable Long id,
-                                               @RequestBody DestinationDto destinationDto) {
-        destinationService.updateDestination(destinationDto, id);
+                                               @RequestBody DestinationDto destinationDto,
+                                               UsernamePasswordAuthenticationToken user) {
+        destinationService.updateDestination(destinationDto, id, user.getName());
 
         return ResponseEntity
                 .status(HttpStatus.OK)

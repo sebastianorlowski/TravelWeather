@@ -13,4 +13,6 @@ public interface DestinationRepository extends JpaRepository<Destination, Long> 
     List<Destination> findByTripId(Long id);
 
     Long findTripById(Long id);
+
+    Optional<Destination> findById(Long id);
 }

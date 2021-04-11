@@ -1,6 +1,7 @@
 package pl.orlowski.sebastian.weather.validation.trip;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import pl.orlowski.sebastian.weather.dto.TripDto;
@@ -19,7 +20,7 @@ public class TripValidator {
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
 
-    private boolean checkUser(Long id, String username) {
+    public boolean checkUser(Long id, String username) {
         Trip trip = tripRepository.findTripById(id);
         return trip.getUser().getUsername().equals(username);
     }
@@ -31,11 +32,11 @@ public class TripValidator {
     }
 
     public void showTripValidator(Long id, String username) {
+        if (id == null || !tripRepository.existsById(id) ) {
+            throw new TripNotExistException("");
+        }
         if (!checkUser(id, username)) {
             throw new AccessException("");
-        }
-        if (!tripRepository.existsById(id)) {
-            throw new TripNotExistException("");
         }
     }
 
