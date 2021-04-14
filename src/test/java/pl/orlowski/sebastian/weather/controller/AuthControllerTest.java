@@ -23,11 +23,6 @@ class AuthControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Test
-    void shouldGetRegistrationPageException() throws Exception {
-        mockMvc.perform(get("/registration"))
-                .andExpect(status().is(200));
-    }
 
     @Test
     @Transactional
@@ -36,8 +31,8 @@ class AuthControllerTest {
         user.setUsername("testtest123");
         user.setPassword("Test12345");
         user.setEmail("testtest@test.com");
-
-        mockMvc.perform(post("/registration")
+        String[] a = new String[]{"lelele", "lel"};
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(201));
@@ -50,7 +45,7 @@ class AuthControllerTest {
         user.setPassword("Test12345");
         user.setEmail("testtesttest.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(403))
@@ -65,7 +60,7 @@ class AuthControllerTest {
         user.setPassword("Test12345");
         user.setEmail("testtest@test.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(403))
@@ -80,7 +75,7 @@ class AuthControllerTest {
         user.setPassword("test12345");
         user.setEmail("testtest@test.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(403))
@@ -96,7 +91,7 @@ class AuthControllerTest {
         userTest.setPassword("Test12343335");
         userTest.setEmail("testtest@gmail.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userTest)))
                 .andExpect(status().is(201));
@@ -106,7 +101,7 @@ class AuthControllerTest {
         user.setPassword("Test12345");
         user.setEmail("testtest@gmail.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(400))
@@ -122,7 +117,7 @@ class AuthControllerTest {
         userTest.setPassword("Test12343335");
         userTest.setEmail("testtest123@gmail.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userTest)))
                 .andExpect(status().is(201));
@@ -132,7 +127,7 @@ class AuthControllerTest {
         user.setPassword("Test12345");
         user.setEmail("testtest@gmail.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(400))
@@ -147,7 +142,7 @@ class AuthControllerTest {
         user.setPassword("Test12345");
         user.setEmail("testtest@test.com");
 
-        mockMvc.perform(post("/registration")
+        mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().is(403))
