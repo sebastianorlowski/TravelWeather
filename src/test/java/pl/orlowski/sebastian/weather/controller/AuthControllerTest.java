@@ -31,7 +31,6 @@ class AuthControllerTest {
         user.setUsername("testtest123");
         user.setPassword("Test12345");
         user.setEmail("testtest@test.com");
-        String[] a = new String[]{"lelele", "lel"};
         mockMvc.perform(post("/api/v1/registration")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
