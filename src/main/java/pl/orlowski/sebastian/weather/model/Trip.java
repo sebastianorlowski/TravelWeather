@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "trips")
@@ -26,6 +27,6 @@ public class Trip {
     private User user;
 
     @OneToMany
-    private Collection<Destination> destinations;
-
+    @JoinColumn(name = "trip_id")
+    private List<Destination> destinations = new ArrayList<>();
 }

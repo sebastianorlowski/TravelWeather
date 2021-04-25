@@ -1,30 +1,15 @@
 package pl.orlowski.sebastian.weather.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.orlowski.sebastian.weather.dto.TripDto;
-import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
-import pl.orlowski.sebastian.weather.model.Destination;
-import pl.orlowski.sebastian.weather.model.Trip;
-import pl.orlowski.sebastian.weather.model.User;
-import pl.orlowski.sebastian.weather.repository.TripRepository;
-import pl.orlowski.sebastian.weather.service.TripService;
-
-import javax.transaction.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc

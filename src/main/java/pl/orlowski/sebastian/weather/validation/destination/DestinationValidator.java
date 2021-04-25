@@ -1,14 +1,12 @@
 package pl.orlowski.sebastian.weather.validation.destination;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 import pl.orlowski.sebastian.weather.dto.DestinationDto;
 import pl.orlowski.sebastian.weather.model.Destination;
 import pl.orlowski.sebastian.weather.model.Trip;
 import pl.orlowski.sebastian.weather.repository.DestinationRepository;
 import pl.orlowski.sebastian.weather.repository.TripRepository;
-import pl.orlowski.sebastian.weather.service.DestinationService;
 import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
 import pl.orlowski.sebastian.weather.validation.exception.destination.DestinationNotExistException;
 import pl.orlowski.sebastian.weather.validation.exception.destination.WrongDataException;

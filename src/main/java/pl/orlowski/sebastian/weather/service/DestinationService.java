@@ -22,18 +22,18 @@ public class DestinationService {
 
     public void createDestination(DestinationDto destinationDto, Long id, String username) {
         destinationValidator.checkDestination(id, destinationDto, username);
-
         Destination destination = new Destination();
-        destinationInfo(destinationDto, destination, tripRepository.findTripById(id), id);
+        destinationInfo(destinationDto, destination, id);
     }
 
-    private void destinationInfo(DestinationDto destinationDto, Destination destination, Trip tripById, Long id) {
+    private void destinationInfo(DestinationDto destinationDto, Destination destination, Long id) {
+     Trip trip = tripRepository.findTripById(id);
         destination.setHours(destinationDto.getHours());
         destination.setDay(destinationDto.getDay());
         destination.setMonth(destinationDto.getMonth());
         destination.setYear(destinationDto.getYear());
         destination.setPlace(destinationDto.getPlace());
-        destination.setTrip(tripById);
+        destination.setTrip(trip);
 
         destinationRepository.save(destination);
     }
@@ -43,7 +43,8 @@ public class DestinationService {
 
         Destination destination = new Destination();
         destination.setId(id);
-        destinationInfo(destinationDto, destination, tripRepository.findTripById(id), id);
+        Trip trip = destination.getTrip();
+        destinationInfo(destinationDto, destination, trip.getId());
     }
 
     public Destination showDestinationById(Long id, String username) {

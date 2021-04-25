@@ -41,7 +41,7 @@ public class TripService {
 
     public Trip showTripById(Long id, String username) {
         tripValidator.showTripValidator(id, username);
-        Collection<Destination> destinations = destinationRepository.findByTripId(id);
+        List<Destination> destinations = destinationRepository.findByTripId(id);
         Trip trip = tripRepository.findTripById(id);
         trip.setDestinations(destinations);
         return trip;

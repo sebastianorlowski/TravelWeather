@@ -1,24 +1,15 @@
 package pl.orlowski.sebastian.weather.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import pl.orlowski.sebastian.weather.dto.DestinationDto;
 import pl.orlowski.sebastian.weather.dto.TripDto;
-import pl.orlowski.sebastian.weather.model.Destination;
 import pl.orlowski.sebastian.weather.model.Trip;
-import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.service.DestinationService;
 import pl.orlowski.sebastian.weather.service.TripService;
 
-import javax.xml.ws.Response;
 import java.util.Collection;
 
 @RestController
@@ -51,16 +42,16 @@ public class TripController {
                 .body(trip);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<?> createDestination(@PathVariable Long id,
-                                               @RequestBody DestinationDto destinationDto,
-                                               UsernamePasswordAuthenticationToken user) {
-        destinationService.createDestination(destinationDto, id, user.getName());
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(destinationDto);
-    }
+//    @PostMapping("/{id}")
+//    public ResponseEntity<?> createDestination(@PathVariable Long id,
+//                                               @RequestBody DestinationDto destinationDto,
+//                                               UsernamePasswordAuthenticationToken user) {
+//        destinationService.createDestination(destinationDto, id, user.getName());
+//
+//        return ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .body(destinationDto);
+//    }
 
     @PostMapping
     public ResponseEntity<?> createTrip(@RequestBody TripDto tripDto,

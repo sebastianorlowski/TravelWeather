@@ -1,12 +1,10 @@
 package pl.orlowski.sebastian.weather.validation.trip;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import pl.orlowski.sebastian.weather.dto.TripDto;
 import pl.orlowski.sebastian.weather.model.Trip;
-import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.TripRepository;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
 import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
