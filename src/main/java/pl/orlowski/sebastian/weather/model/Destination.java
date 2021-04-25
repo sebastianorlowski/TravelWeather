@@ -30,6 +30,6 @@ public class Destination {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "trip_id", insertable = false, updatable = false)
+    @JoinColumn(name = "trip_id")
     private Trip trip;
 }
