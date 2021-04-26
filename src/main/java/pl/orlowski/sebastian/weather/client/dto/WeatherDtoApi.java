@@ -4,8 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class WeatherDtoApi {
-
-    private WeatherDataApi main;
-    private String name;
-
+    private Location location;
+    private Current current;
+    private Forecast forecast;
 }

@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.orlowski.sebastian.weather.client.WeatherClient;
-import pl.orlowski.sebastian.weather.dto.WeatherDto;
+import pl.orlowski.sebastian.weather.dto.WeatherDayDto;
 
 @Service
 @Slf4j
@@ -20,7 +20,7 @@ public class WeatherService {
     public WeatherService() {
     }
 
-    public WeatherDto getWeather() {
+    public WeatherDayDto getWeather() {
         return weatherClient.getWeatherForCity("warszawa");
     }
 
