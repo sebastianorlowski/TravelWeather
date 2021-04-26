@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import pl.orlowski.sebastian.weather.dto.DestinationDto;
 import pl.orlowski.sebastian.weather.model.Destination;
 import pl.orlowski.sebastian.weather.model.Trip;
+import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.repository.DestinationRepository;
 import pl.orlowski.sebastian.weather.repository.TripRepository;
 import pl.orlowski.sebastian.weather.validation.exception.EmptyValueException;
@@ -19,25 +20,25 @@ public class DestinationValidator {
 
     private final DestinationRepository destinationRepository;
     private final TripValidator tripValidator;
-    private final TripRepository tripRepository;
     private final DestinationInfoChecker destinationInfoChecker;
 
     public boolean checkTrip(Long id, String username) {
-        return tripValidator.checkUser(id, username);
+        return tripValidator.checkUserAndTripExist(id, username);
     }
 
     public boolean checkUserDestination(Long id, String username) {
         Destination destination = destinationRepository.getOne(id);
         Trip trip = destination.getTrip();
-        return trip.getUser().getUsername().equals(username);
+        User user = trip.getUser();
+        return user.getUsername().equals(username);
     }
 
-    public void checkShowDestination(Long id, String username) {
+    public void checkDestination(Long id, String username) {
         if (id == 0) {
             throw new EmptyValueException("");
         }
 
-        if (!destinationRepository.findById(id).isPresent()) {
+        if (!destinationRepository.existsById(id) && checkTrip(id, username)) {
             throw new DestinationNotExistException("");
         }
 
@@ -53,6 +54,7 @@ public class DestinationValidator {
         if (!checkTrip(id, username)) {
             throw new AccessException("");
         }
+
         if (!destinationInfoChecker.isDateValid(
                 destinationDto.getHours(),
                 destinationDto.getDay(),

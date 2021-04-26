@@ -18,9 +18,13 @@ public class TripValidator {
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
 
-    public boolean checkUser(Long id, String username) {
+    public boolean checkUserAndTripExist(Long id, String username) {
         Trip trip = tripRepository.findTripById(id);
-        return trip.getUser().getUsername().equals(username);
+        if (id == null || !tripRepository.existsTripById(id)) {
+            throw new TripNotExistException("");
+        }
+        return trip.getUser().getUsername().equals(username)
+                && tripRepository.existsTripById(id);
     }
 
     public void createTripValidator(TripDto tripDto) {
@@ -30,10 +34,8 @@ public class TripValidator {
     }
 
     public void showTripValidator(Long id, String username) {
-        if (id == null || !tripRepository.existsById(id) ) {
-            throw new TripNotExistException("");
-        }
-        if (!checkUser(id, username)) {
+
+        if (!checkUserAndTripExist(id, username)) {
             throw new AccessException("");
         }
     }
@@ -42,5 +44,9 @@ public class TripValidator {
         if (userRepository.findByUsername(username) == null) {
             throw new UsernameNotFoundException("");
         }
+    }
+
+    public boolean isExistTrip(Long id) {
+        return tripRepository.existsTripById(id);
     }
 }

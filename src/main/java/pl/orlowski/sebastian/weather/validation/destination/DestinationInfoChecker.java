@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 public class DestinationInfoChecker {
 
     protected boolean isDateValid(int hours, int day, int month, int year) {
-        String hoursRegex = "(2[0-3]|1[0-9]|0[0-9])$";
-        String dayRegex = "(3[01]|[12][0-9]|0[1-9])$";
+        String hoursRegex = "(2[0-3]|1[0-9]|[0-9])$";
+        String dayRegex = "(3[01]|[12][0-9]|[1-9])$";
         String monthRegex = "(1[0-2]|[1-9])$";
         String yearRegex = "[0-9]{4}$";
 

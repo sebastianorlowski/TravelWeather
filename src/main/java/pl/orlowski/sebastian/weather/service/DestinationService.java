@@ -38,21 +38,21 @@ public class DestinationService {
         destinationRepository.save(destination);
     }
 
-    public void updateDestination(DestinationDto destinationDto, Long id, String username) {
+    public void updateDestination(DestinationDto destinationDto, Long id, String username, Long tripId) {
         destinationValidator.checkDestination(id, destinationDto, username);
 
         Destination destination = new Destination();
         destination.setId(id);
-        Trip trip = destination.getTrip();
-        destinationInfo(destinationDto, destination, trip.getId());
+        destinationInfo(destinationDto, destination, tripId);
     }
 
     public Destination showDestinationById(Long id, String username) {
-        destinationValidator.checkShowDestination(id, username);
+        destinationValidator.checkDestination(id, username);
         return destinationRepository.getOne(id);
     }
 
-    public void removeDestination(Long id) {
+    public void removeDestination(Long id, String username) {
+        destinationValidator.checkDestination(id, username);
         destinationRepository.deleteById(id);
     }
 }

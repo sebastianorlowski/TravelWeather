@@ -43,7 +43,7 @@ public class DestinationController {
                                                @PathVariable Long destinationId,
                                                @RequestBody DestinationDto destinationDto,
                                                UsernamePasswordAuthenticationToken user) {
-        destinationService.updateDestination(destinationDto, destinationId, user.getName());
+        destinationService.updateDestination(destinationDto, destinationId, user.getName(), tripId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -54,7 +54,7 @@ public class DestinationController {
     public ResponseEntity<?> deleteDestination(@PathVariable Long tripId,
                                                @PathVariable Long destinationId,
                                                UsernamePasswordAuthenticationToken user) {
-        destinationService.removeDestination(destinationId);
+        destinationService.removeDestination(destinationId, user.getName());
 
         return ResponseEntity
                 .status(HttpStatus.OK)
