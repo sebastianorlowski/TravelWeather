@@ -1,11 +1,45 @@
-# TravelWeather
+# TravelWeather - In process...
 
-In process...
+Restful application about planning journey and show current and future weather in place where you go.
 
-Concept:
+## Tools
+* Spring Boot
+* Hibernate
+* Maven
+* mySQL
 
-Restful application about planning your trip and show weather for future.
-User can add by JSON his destinations and see weather which will in this place (max 30 days).
-App contain authentication by JWT and working with JSON requests.
+## Features
 
-It will connect to the framework in future.
+- registration user
+- authentication process by JWT
+- authentication user can add trips and destinations inside this trip
+- crud operations on trips and destionations
+- connect with external API (weatherapi.com)
+- send to user information about weather in his destinations(in process...)
+
+## Code Examples
+Registration by JSON:
+/api/v1/registration
+Post request:
+* {
+*  "email": "string",
+*  "id": 0,
+*  "password": "string",
+*  "username": "string"
+* }
+
+Add destination by JSON:
+* {
+*  "day": 0,
+*  "hours": 0,
+*  "id": 0,
+*  "month": 0,
+*  "place": "string",
+*  "year": 0
+}
+
+## Status
+Project is: _in progress_.
+
+In future add front-end and upload to heroku.
+
