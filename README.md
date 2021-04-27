@@ -2,6 +2,15 @@
 
 Restful application about planning journey and show current and future weather in place where you go.
 
+
+## Description
+Always when you going for journey you will check current and future weather in this place. Applications which offers view to weather in one place just working for one city on this time. This application will offer you add your trip and there is possible to add few destinations. You will get information about weather 72 hours forward hour by hour, for few places on one time.
+
+Example.
+
+You start your journey frow Airport in Warsaw. Your aircraft start 10 may at 8 am and will arrive 10 am in Paris this same day. Next day you will fly to Madrid and you decide stay there to next day where you will fly to London. By this Application you can add this places with dates and see whats weather will be there. Also you will get information about weather few hours before your target.
+
+
 ## Tools
 * Spring Boot
 * Hibernate
