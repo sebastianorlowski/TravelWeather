@@ -5,16 +5,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DestinationInfoChecker {
 
-    protected boolean isDateValid(int hours, int day, int month, int year) {
-        String hoursRegex = "(2[0-3]|1[0-9]|[0-9])$";
-        String dayRegex = "(3[01]|[12][0-9]|[1-9])$";
-        String monthRegex = "(1[0-2]|[1-9])$";
-        String yearRegex = "[0-9]{4}$";
+    protected boolean isDateValid(String date) {
+        String dateRegex = ("^20[0-9]{2}-([0-2]?[0-9])-([0-3]?[0-9])" +
+                "\\s(([01]?[0-9]|2[0-3]):[0-5][0-9])$");
 
-        return String.valueOf(hours).matches(hoursRegex) &&
-                String.valueOf(day).matches(dayRegex) &&
-                String.valueOf(month).matches(monthRegex) &&
-                String.valueOf(year).matches(yearRegex);
+        return dateRegex.equals(date);
     }
 
     protected boolean placeValid(String place) {

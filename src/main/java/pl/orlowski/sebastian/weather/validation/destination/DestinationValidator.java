@@ -55,11 +55,7 @@ public class DestinationValidator {
             throw new AccessException("");
         }
 
-        if (!destinationInfoChecker.isDateValid(
-                destinationDto.getHours(),
-                destinationDto.getDay(),
-                destinationDto.getMonth(),
-                destinationDto.getYear())) {
+        if (!destinationInfoChecker.isDateValid(destinationDto.getDate())) {
             throw new WrongDataException("");
         }
     }

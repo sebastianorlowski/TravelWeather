@@ -12,10 +12,7 @@ import pl.orlowski.sebastian.weather.model.Trip;
 public class DestinationDto {
 
     private Long id;
-    private int hours;
-    private int day;
-    private int month;
-    private int year;
+    private String date;
     private String place;
 
     @JsonIgnore

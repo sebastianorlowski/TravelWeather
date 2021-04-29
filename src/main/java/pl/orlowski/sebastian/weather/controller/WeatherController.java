@@ -22,6 +22,7 @@ public class WeatherController {
     @GetMapping("/{id}")
     public ResponseEntity<?> showWeatherForTrip(@PathVariable Long id,
                                                 UsernamePasswordAuthenticationToken user) {
+        weatherService.getWeatherForTrip(id, user.getName());
         return ResponseEntity
                 .status(200)
                 .body("");

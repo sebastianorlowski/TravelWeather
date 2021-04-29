@@ -22,10 +22,8 @@ public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int hours;
-    private int day;
-    private int month;
-    private int year;
+    // Format yyyy-mm-dd hh:mm
+    private String date;
     private String place;
 
     @JsonIgnore

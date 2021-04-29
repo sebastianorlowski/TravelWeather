@@ -28,10 +28,7 @@ public class DestinationService {
 
     private void destinationInfo(DestinationDto destinationDto, Destination destination, Long id) {
      Trip trip = tripRepository.findTripById(id);
-        destination.setHours(destinationDto.getHours());
-        destination.setDay(destinationDto.getDay());
-        destination.setMonth(destinationDto.getMonth());
-        destination.setYear(destinationDto.getYear());
+        destination.setDate(destinationDto.getDate());
         destination.setPlace(destinationDto.getPlace());
         destination.setTrip(trip);
 
