@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.orlowski.sebastian.weather.dto.WeatherDayDto;
 import pl.orlowski.sebastian.weather.service.WeatherService;
 
-@RestController("api/v1/weather")
+@RestController
+@RequestMapping("api/v1/weather")
 @RequiredArgsConstructor
 public class WeatherController {
 
