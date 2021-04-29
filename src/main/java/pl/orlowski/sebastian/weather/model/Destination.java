@@ -32,4 +32,5 @@ public class Destination {
     @ManyToOne
     @JoinColumn(name = "trip_id")
     private Trip trip;
+
 }

@@ -7,7 +7,6 @@ import pl.orlowski.sebastian.weather.client.WeatherClient;
 import pl.orlowski.sebastian.weather.dto.WeatherDayDto;
 
 @Service
-@Slf4j
 public class WeatherService {
 
     private WeatherClient weatherClient;
