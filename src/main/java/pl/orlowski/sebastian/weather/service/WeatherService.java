@@ -1,6 +1,5 @@
 package pl.orlowski.sebastian.weather.service;
 
-import javafx.scene.input.DataFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +29,11 @@ public class WeatherService {
 
     public void getWeatherForTrip(Long id, String username) {
         tripValidator.showTripValidator(id, username);
+
         Trip trip = tripRepository.findTripById(id);
         List<Destination> destinations = trip.getDestinations();
 
 
     }
-
-//    public List<Data> convertDataInDestinations(List<Destination> destinations) {
-//
-//    }
-//
-//    public boolean convertDataFromJson(List<Destination> destinations) {
-//        LocalDate localDate = LocalDate.now();
-//
-//    }
 
 }
