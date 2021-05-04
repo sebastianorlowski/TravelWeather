@@ -13,9 +13,4 @@ public enum ConfigWeather {
         this.value = value;
     }
 
-
-
-
-
-
 }

@@ -8,4 +8,5 @@ public class Current {
     private double temp_c;
     private String last_updated;
     private Condition condition;
+    private double wind_kph;
 }
