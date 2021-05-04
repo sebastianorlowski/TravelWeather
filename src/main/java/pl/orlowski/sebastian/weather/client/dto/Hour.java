@@ -1,6 +1,10 @@
 package pl.orlowski.sebastian.weather.client.dto;
 
+import lombok.Getter;
+
+@Getter
 public class Hour {
+
     private String time;
     private double temp_c;
     private int is_day;

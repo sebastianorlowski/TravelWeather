@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.orlowski.sebastian.weather.dto.WeatherDayDto;
 import pl.orlowski.sebastian.weather.service.WeatherService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/weather")
 @RequiredArgsConstructor
@@ -20,12 +22,12 @@ public class WeatherController {
 //        return weatherService.getWeather();
 //    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> showWeatherForTrip(@PathVariable Long id,
+    @GetMapping("/{tripId}")
+    public ResponseEntity<?> showWeatherForTrip(@PathVariable Long tripId,
                                                 UsernamePasswordAuthenticationToken user) {
-        weatherService.getWeatherForTrip(id, user.getName());
+        List<WeatherDayDto> weather = weatherService.getWeatherForTrip(tripId, user.getName());
         return ResponseEntity
                 .status(200)
-                .body("");
+                .body(weather);
     }
 }

@@ -42,17 +42,6 @@ public class TripController {
                 .body(trip);
     }
 
-//    @PostMapping("/{id}")
-//    public ResponseEntity<?> createDestination(@PathVariable Long id,
-//                                               @RequestBody DestinationDto destinationDto,
-//                                               UsernamePasswordAuthenticationToken user) {
-//        destinationService.createDestination(destinationDto, id, user.getName());
-//
-//        return ResponseEntity
-//                .status(HttpStatus.CREATED)
-//                .body(destinationDto);
-//    }
-
     @PostMapping
     public ResponseEntity<?> createTrip(@RequestBody TripDto tripDto,
                                         UsernamePasswordAuthenticationToken user) {
