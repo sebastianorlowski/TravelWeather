@@ -58,26 +58,6 @@ e.g. If you add two, three or more destinations for 3 days then
 application will generate weather for every location 3 days before date which you add to destination.
 
 
-## Code Examples
-Registration by JSON:
-/api/v1/registration
-Post request:
-
-* {
-*  "email": "string",
-*  "id": 0,
-*  "password": "string",
-*  "username": "string"
-* }
-
-Add destination by JSON:
-
-* {
-*   "date": "string",
-*   "id": 0,
-*   "place": "string"
-* }
-
 ## Status
 Project is: _in progress_.
 
