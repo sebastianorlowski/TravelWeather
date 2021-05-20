@@ -24,16 +24,16 @@ public class TripService {
     private final DestinationRepository destinationRepository;
     private final TripValidator tripValidator;
 
-    public void save(TripDto tripDto, String username) {
+    public Trip save(TripDto tripDto, String username) {
         tripValidator.createTripValidator(tripDto);
         Trip trip = new Trip();
         trip.setName(tripDto.getName());
         trip.setUser(userRepository.findByUsername(username));
 
-        tripRepository.save(trip);
+        return tripRepository.save(trip);
     }
 
-    public Collection<Trip> showTripByUsername(String username) {
+    public List<Trip> showTripByUsername(String username) {
         tripValidator.showTripByUsernameValidator(username);
         User user = userRepository.findByUsername(username);
         return tripRepository.findTripByUser(user);
@@ -47,14 +47,14 @@ public class TripService {
         return trip;
     }
 
-    public void updateTrip(TripDto tripDto, Long id, String username) {
+    public Trip updateTrip(TripDto tripDto, Long id, String username) {
         tripValidator.createTripValidator(tripDto);
         Trip trip = new Trip();
         trip.setId(id);
         trip.setName(tripDto.getName());
         trip.setUser(userRepository.findByUsername(username));
 
-        tripRepository.save(trip);
+        return tripRepository.save(trip);
     }
 
     @Transactional

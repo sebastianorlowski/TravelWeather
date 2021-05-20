@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.orlowski.sebastian.weather.config.security.LoginCredentials;
 import pl.orlowski.sebastian.weather.dto.UserRegistrationDto;
+import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.service.UserService;
 
 @RestController
@@ -16,14 +17,13 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {
+    public ResponseEntity<User> registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {
         userService.save(userRegistrationDto);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body("User is created successfully!");
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //Only for Swagger
     @PostMapping("/login")
     public void login(@RequestBody LoginCredentials loginCredentials) {
 

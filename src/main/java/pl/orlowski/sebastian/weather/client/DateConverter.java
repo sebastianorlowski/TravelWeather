@@ -47,5 +47,4 @@ public class DateConverter {
                 Integer.parseInt(dateGroups[1]),
                 Integer.parseInt(dateGroups[2]));
     }
-
 }

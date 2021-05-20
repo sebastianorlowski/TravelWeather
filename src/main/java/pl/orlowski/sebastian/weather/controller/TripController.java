@@ -11,6 +11,7 @@ import pl.orlowski.sebastian.weather.service.DestinationService;
 import pl.orlowski.sebastian.weather.service.TripService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/trips")
@@ -21,45 +22,37 @@ public class TripController {
     public final DestinationService destinationService;
 
     @GetMapping
-    public ResponseEntity<?> showTrips(UsernamePasswordAuthenticationToken user) {
-        Collection<Trip> trips = tripService.showTripByUsername(user.getName());
+    public ResponseEntity<List<Trip>> showTrips(UsernamePasswordAuthenticationToken user) {
+        List<Trip> trips = tripService.showTripByUsername(user.getName());
         if (trips.isEmpty()) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(trips);
+        return new ResponseEntity<>(trips, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> showTripById(@PathVariable Long id,
+    public ResponseEntity<Trip> showTripById(@PathVariable Long id,
                                           UsernamePasswordAuthenticationToken user) {
         Trip trip = tripService.showTripById(id, user.getName());
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(trip);
+
+        return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<?> createTrip(@RequestBody TripDto tripDto,
+    public ResponseEntity<Trip> createTrip(@RequestBody TripDto tripDto,
                                         UsernamePasswordAuthenticationToken user) {
-        tripService.save(tripDto, user.getName());
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .build();
+        Trip trip = tripService.save(tripDto, user.getName());
+
+        return new ResponseEntity<>(trip, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTripName(@PathVariable Long id,
+    public ResponseEntity<Trip> updateTripName(@PathVariable Long id,
                                             @RequestBody TripDto tripDto,
                                             UsernamePasswordAuthenticationToken user) {
-        tripService.updateTrip(tripDto, id, user.getName());
+        Trip trip = tripService.updateTrip(tripDto, id, user.getName());
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(tripDto);
+        return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -67,8 +60,6 @@ public class TripController {
                                   UsernamePasswordAuthenticationToken user) {
         tripService.removeTrip(id, user.getName());
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

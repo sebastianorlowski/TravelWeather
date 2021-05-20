@@ -1,6 +1,7 @@
 package pl.orlowski.sebastian.weather.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,7 @@ public class WeatherController {
     public ResponseEntity<?> showWeatherForTrip(@PathVariable Long tripId,
                                                 UsernamePasswordAuthenticationToken user) {
         List<WeatherDayDto> weather = weatherService.getWeatherForTrip(tripId, user.getName());
-        return ResponseEntity
-                .status(200)
-                .body(weather);
+
+        return new ResponseEntity<>(weather, HttpStatus.OK);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 import pl.orlowski.sebastian.weather.dto.DestinationDto;
 import pl.orlowski.sebastian.weather.model.Destination;
+import pl.orlowski.sebastian.weather.model.Trip;
 import pl.orlowski.sebastian.weather.service.DestinationService;
 
 @RestController
@@ -17,25 +18,23 @@ public class DestinationController {
     private final DestinationService destinationService;
 
     @PostMapping("/{tripId}/destinations")
-    public ResponseEntity<?> createDestination(@PathVariable Long tripId,
-                                               @RequestBody DestinationDto destinationDto,
-                                               UsernamePasswordAuthenticationToken user) {
-        destinationService.createDestination(destinationDto, tripId,  user.getName());
+    public ResponseEntity<Destination> createDestination(@PathVariable Long tripId,
+                                                  @RequestBody DestinationDto destinationDto,
+                                                  UsernamePasswordAuthenticationToken user) {
+        Destination destination = destinationService
+                .createDestination(destinationDto, tripId,  user.getName());
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(destinationDto);
+        return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
 
     @GetMapping("/{tripId}/destinations/{destinationId}")
-    public ResponseEntity<?> showDestination(@PathVariable Long tripId,
+    public ResponseEntity<Destination> showDestination(@PathVariable Long tripId,
                                              @PathVariable Long destinationId,
                                              UsernamePasswordAuthenticationToken user) {
-        Destination destination = destinationService.showDestinationById(destinationId, user.getName());
+        Destination destination = destinationService
+                .showDestinationById(destinationId, user.getName());
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(destination);
+        return new ResponseEntity<>(destination, HttpStatus.OK);
     }
 
     @PutMapping("/{tripId}/destinations/{destinationId}")
@@ -43,11 +42,10 @@ public class DestinationController {
                                                @PathVariable Long destinationId,
                                                @RequestBody DestinationDto destinationDto,
                                                UsernamePasswordAuthenticationToken user) {
-        destinationService.updateDestination(destinationDto, destinationId, user.getName(), tripId);
+        Destination destination = destinationService
+                .updateDestination(destinationDto, destinationId, user.getName(), tripId);
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(destinationDto);
+        return new ResponseEntity<>(destination, HttpStatus.OK);
     }
 
     @DeleteMapping("/{tripId}/destinations/{destinationId}")
@@ -56,9 +54,6 @@ public class DestinationController {
                                                UsernamePasswordAuthenticationToken user) {
         destinationService.removeDestination(destinationId, user.getName());
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
