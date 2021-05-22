@@ -1,6 +1,6 @@
 package pl.orlowski.sebastian.weather.controller;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,16 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/weather")
-@RequiredArgsConstructor
 public class WeatherController {
 
     private final WeatherService weatherService;
 
-
-//    @GetMapping()
-//    public WeatherDayDto getWeather() {
-//        return weatherService.getWeather();
-//    }
+    @Autowired
+    public WeatherController(WeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
 
     @GetMapping("/{tripId}")
     public ResponseEntity<?> showWeatherForTrip(@PathVariable Long tripId,

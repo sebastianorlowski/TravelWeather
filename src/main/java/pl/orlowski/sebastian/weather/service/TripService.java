@@ -26,6 +26,7 @@ public class TripService {
 
     public Trip save(TripDto tripDto, String username) {
         tripValidator.createTripValidator(tripDto);
+
         Trip trip = new Trip();
         trip.setName(tripDto.getName());
         trip.setUser(userRepository.findByUsername(username));
@@ -35,12 +36,14 @@ public class TripService {
 
     public List<Trip> showTripByUsername(String username) {
         tripValidator.showTripByUsernameValidator(username);
+
         User user = userRepository.findByUsername(username);
         return tripRepository.findTripByUser(user);
     }
 
     public Trip showTripById(Long id, String username) {
         tripValidator.showTripValidator(id, username);
+
         List<Destination> destinations = destinationRepository.findByTripId(id);
         Trip trip = tripRepository.findTripById(id);
         trip.setDestinations(destinations);
@@ -49,6 +52,7 @@ public class TripService {
 
     public Trip updateTrip(TripDto tripDto, Long id, String username) {
         tripValidator.createTripValidator(tripDto);
+
         Trip trip = new Trip();
         trip.setId(id);
         trip.setName(tripDto.getName());
@@ -60,8 +64,8 @@ public class TripService {
     @Transactional
     public void removeTrip(Long id, String username) {
         tripValidator.showTripValidator(id, username);
+
         destinationRepository.removeByTripId(id);
         tripRepository.deleteById(id);
     }
-
 }

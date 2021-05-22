@@ -1,6 +1,7 @@
 package pl.orlowski.sebastian.weather.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,10 +13,14 @@ import pl.orlowski.sebastian.weather.service.DestinationService;
 
 @RestController
 @RequestMapping("/api/v1/trips")
-@RequiredArgsConstructor
 public class DestinationController {
 
     private final DestinationService destinationService;
+
+    @Autowired
+    public DestinationController(DestinationService destinationService) {
+        this.destinationService = destinationService;
+    }
 
     @PostMapping("/{tripId}/destinations")
     public ResponseEntity<Destination> createDestination(@PathVariable Long tripId,
@@ -27,9 +32,8 @@ public class DestinationController {
         return new ResponseEntity<>(destination, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{tripId}/destinations/{destinationId}")
-    public ResponseEntity<Destination> showDestination(@PathVariable Long tripId,
-                                             @PathVariable Long destinationId,
+    @GetMapping("/destinations/{destinationId}")
+    public ResponseEntity<Destination> showDestination(@PathVariable Long destinationId,
                                              UsernamePasswordAuthenticationToken user) {
         Destination destination = destinationService
                 .showDestinationById(destinationId, user.getName());

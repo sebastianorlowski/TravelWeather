@@ -1,6 +1,7 @@
 package pl.orlowski.sebastian.weather.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +11,15 @@ import pl.orlowski.sebastian.weather.model.User;
 import pl.orlowski.sebastian.weather.service.UserService;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class AuthController {
 
     private final UserService userService;
+
+    @Autowired
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/registration")
     public ResponseEntity<User> registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {

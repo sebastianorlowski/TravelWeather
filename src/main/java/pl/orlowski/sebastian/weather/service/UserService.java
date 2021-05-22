@@ -28,7 +28,6 @@ public class UserService implements UserDetailsService {
     private final RoleRepository roleRepository;
 
     public void save(UserRegistrationDto userRegistrationDto) {
-
         userValidator.userRegistrationValidator(userRegistrationDto);
 
         User user = new User();
@@ -49,7 +48,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("");
         }
-
         return new org.springframework.security.core.userdetails.User
                 (user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }

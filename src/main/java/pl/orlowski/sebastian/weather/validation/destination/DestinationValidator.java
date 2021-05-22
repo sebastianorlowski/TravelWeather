@@ -37,11 +37,9 @@ public class DestinationValidator {
         if (id == 0) {
             throw new EmptyValueException("");
         }
-
         if (!destinationRepository.existsById(id) && checkTrip(id, username)) {
             throw new DestinationNotExistException("");
         }
-
         if (!checkUserDestination(id, username)) {
             throw new AccessException("");
         }
@@ -54,7 +52,6 @@ public class DestinationValidator {
         if (!checkTrip(id, username)) {
             throw new AccessException("");
         }
-
         if (!destinationInfoChecker.isDateValid(destinationDto.getDate())) {
             throw new WrongDataException("");
         }
