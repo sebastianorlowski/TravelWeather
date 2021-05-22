@@ -15,8 +15,7 @@ import pl.orlowski.sebastian.weather.repository.RoleRepository;
 import pl.orlowski.sebastian.weather.repository.UserRepository;
 import pl.orlowski.sebastian.weather.validation.user.UserValidator;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +36,9 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
         user.setEmail(userRegistrationDto.getEmail());
         user.setEnabled(true);
-        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
+        final Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName("ROLE_USER"));
+        user.setRoles(roles);
 
         userRepository.save(user);
     }

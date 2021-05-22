@@ -31,9 +31,8 @@ public class User {
                     name = "user_id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
     @Column(name = "enabled", columnDefinition = "TINYINT")
     private boolean enabled;
-
 }
